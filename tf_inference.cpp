@@ -47,7 +47,12 @@ int main(int argc, char** argv )
 
   //Create graph in session
   Session* session;
-  NewSession(SessionOptions(), &session);
+  
+  SessionOptions sessionOptions;
+  
+  sessionOptions.config.mutable_gpu_options()->set_allow_growth(true);
+  
+  NewSession(sessionOptions, &session);
   Status status_create = session->Create(graphdef);
   if (!status_create.ok()) {
      cout << "ERROR: Creating graph in session failed successfully!" << endl;
