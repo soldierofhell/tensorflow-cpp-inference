@@ -16,7 +16,7 @@ include_directories(
    #/notebooks/tensorflow/bazel-bin/tensorflow
    #/notebooks/tensorflow/tensorflow/contrib/makefile/downloads/nsync/public
    /usr/local/include/eigen3
-   /usr/local/include/tf/tensorflow
+   /usr/local/include/tf
    ) 
 add_executable(tf_inference  tf_inference.cpp) 
 target_link_libraries(tf_inference tensorflow_cc tensorflow_framework opencv_imgcodecs opencv_imgproc opencv_core opencv_highgui)
