@@ -8,6 +8,9 @@ using tensorflow::Tensor;
 using tensorflow::Status;
 using tensorflow::string;
 
+#include "tensorflow/cc/saved_model/loader.h"
+#include "tensorflow/cc/saved_model/signature_constants.h"
+
 void convertMat2Tensor(Mat img, Tensor* output_tensor, int height, int width) {
   resize(img, img, cv::Size(height, width));
   float *p = output_tensor->flat<float>().data();
@@ -44,6 +47,17 @@ int main(int argc, char** argv )
       return -1;
   }
   cout << "INFO: Loading model to graph successfully !" << endl;
+  
+  // load saved_model as saved_model_bundle_lite
+  
+  const string export_dir = "../my_model";
+  SavedModelBundle bundle;
+  SessionOptions session_options;
+  RunOptions run_options;
+
+  LoadSavedModel(session_options, run_options, export_dir, {kSavedModelTagServe},
+               &bundle);
+
 
   //Create graph in session
   Session* session;
