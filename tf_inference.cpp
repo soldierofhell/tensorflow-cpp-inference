@@ -54,7 +54,7 @@ int main(int argc, char** argv )
   const string export_dir = "../my_model";
   SessionOptions session_options;  
   session_options.config.mutable_gpu_options()->set_allow_growth(true);
-  SavedModelBundle bundle;
+  SavedModelBundleLite bundle;
   RunOptions run_options;
 
   LoadSavedModel(session_options, run_options, export_dir, {kSavedModelTagServe},
