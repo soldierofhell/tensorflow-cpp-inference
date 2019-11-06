@@ -9,6 +9,7 @@ using tensorflow::Status;
 using tensorflow::string;
 
 #include "tensorflow/cc/saved_model/loader.h"
+#include "tensorflow/cc/saved_model/signature_constants.h"
 #include "tensorflow/cc/saved_model/tag_constants.h"
 
 void convertMat2Tensor(Mat img, Tensor* output_tensor, int height, int width) {
@@ -58,6 +59,14 @@ int main(int argc, char** argv )
 
   LoadSavedModel(session_options, run_options, export_dir, {kSavedModelTagServe},
                &bundle);
+  
+  const auto& signature_def = bundle.GetSignatures().at(0);
+  
+  const string input_name = signature_def.inputs().at("input_1").name();
+  const string output_name =
+      signature_def.outputs().at("activation").name();
+  
+  cout << input_name << output_name << endl;
 
 
 
