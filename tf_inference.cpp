@@ -48,15 +48,7 @@ int main(int argc, char** argv )
   }
   cout << "INFO: Loading model to graph successfully !" << endl;
   
-  // load saved_model as saved_model_bundle_lite
-  
-  const string export_dir = "../my_model";
-  SavedModelBundle bundle;
-  SessionOptions session_options;
-  RunOptions run_options;
 
-  LoadSavedModel(session_options, run_options, export_dir, {kSavedModelTagServe},
-               &bundle);
 
 
   //Create graph in session
@@ -65,6 +57,15 @@ int main(int argc, char** argv )
   SessionOptions sessionOptions;
   
   sessionOptions.config.mutable_gpu_options()->set_allow_growth(true);
+  
+  // load saved_model as saved_model_bundle_lite
+  
+  const string export_dir = "../my_model";
+  SavedModelBundle bundle;
+  RunOptions run_options;
+
+  LoadSavedModel(session_options, run_options, export_dir, {kSavedModelTagServe},
+               &bundle);
   
   NewSession(sessionOptions, &session);
   Status status_create = session->Create(graphdef);
