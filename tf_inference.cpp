@@ -9,7 +9,7 @@ using tensorflow::Status;
 using tensorflow::string;
 
 #include "tensorflow/cc/saved_model/loader.h"
-#include "tensorflow/cc/saved_model/signature_constants.h"
+#include "tensorflow/cc/saved_model/tag_constants.h"
 
 void convertMat2Tensor(Mat img, Tensor* output_tensor, int height, int width) {
   resize(img, img, cv::Size(height, width));
