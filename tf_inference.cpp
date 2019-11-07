@@ -51,6 +51,22 @@ int main(int argc, char** argv )
   
   // load saved_model as saved_model_bundle_lite
   
+    //Read image
+  string image_path = "~/idsia_trails_dataset/001/videos/lc/GOPR0006.MP4.frames/00000001.jpg";
+  Mat img1 = imread(image_path);
+  if (img1.empty()) {
+      cout << "ERROR: Opening image failed successfully !" << endl;
+      return -1;
+  }
+  
+  cvtColor(img1, img1, COLOR_BGR2RGB);
+  resize(img1, img1, Size(224,224));
+  // skalowanie do [-1,1]
+  
+  Tensor input_tensor1(DT_FLOAT, TensorShape({1, 224,224, 1}));
+  convertMat2Tensor(img, &input_tensor1, 224,224);
+ 
+  
   const string export_dir = "../my_model";
   SessionOptions session_options;  
   session_options.config.mutable_gpu_options()->set_allow_growth(true);
@@ -69,7 +85,7 @@ int main(int argc, char** argv )
   cout << "input_name: " << input_name << "output_name: " << output_name << endl;
   
   std::vector<Tensor> outputs;
-  bundle.GetSession()->Run({{input_name, input_tensor}}, {output_name},
+  bundle.GetSession()->Run({{input_name, input_tensor1}}, {output_name},
                                         {}, &outputs);
 
   cout << "outputs size: " << outputs.size() << endl;
