@@ -64,7 +64,7 @@ int main(int argc, char** argv )
   
   const string input_name = signature_def.inputs().at("input_1").name();
   const string output_name =
-      signature_def.outputs().at("activation").name();
+      signature_def.outputs().at("activation_1").name();
   
   cout << "input_name: " << input_name << "output_name: " << output_name << endl;
   
