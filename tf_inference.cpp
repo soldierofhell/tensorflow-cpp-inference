@@ -60,7 +60,7 @@ int main(int argc, char** argv )
   LoadSavedModel(session_options, run_options, export_dir, {kSavedModelTagServe},
                &bundle);
   
-  const auto& signature_def = bundle.GetSignatures().at(0);
+  const auto& signature_def = bundle.GetSignatures().at("serving_default");
   
   const string input_name = signature_def.inputs().at("input_1").name();
   const string output_name =
