@@ -67,6 +67,10 @@ int main(int argc, char** argv )
       signature_def.outputs().at("activation").name();
   
   cout << "input_name: " << input_name << "output_name: " << output_name << endl;
+  
+  std::vector<Tensor> outputs;
+  bundle.GetSession()->Run({{input_name, input_tensor}}, {output_name},
+                                        {}, &outputs);
 
 
 
