@@ -72,7 +72,13 @@ int main(int argc, char** argv )
   bundle.GetSession()->Run({{input_name, input_tensor}}, {output_name},
                                         {}, &outputs);
 
+  cout << "outputs size: " << outputs.size() << endl;
+  
+  int nclasses = outputs[0].shape().dim_size(1);
+  for (int i = 0; i < nclasses; i++) {
+      cout << "Class " << i << " Prob: " << outputs[0].tensor<float, 2>()(0, i) << endl;
 
+  }
 
   //Create graph in session
   Session* session;
